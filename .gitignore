@@ -1,2 +1,5 @@
 whiskies.txt
 *.pyc
+*.csv
+
+.R*
