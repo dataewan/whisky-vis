@@ -149,3 +149,15 @@ Here's my attempt at the scale.
 1. Honey
 1. Sweetness
 1. Winey
+
+----
+
+## What now?
+
+I've got three interesting things now:
+
+ 1. The geographic location of each distillery
+ 1. How similar each distillery is to each other. Use the factors to calculate distances.
+ 1. An idea about radial scales.
+
+My plan is to combine all of these into one.
