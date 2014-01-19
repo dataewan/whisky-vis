@@ -19,6 +19,7 @@ p <- ggplot(plot.data, aes(x=X1, y=X2, fill=value)) +
         axis.text.y = element_text(angle=45, hjust = 1))
 
 ggsave(plot=p, width = 9, height=8, filename="plots/correlations.svg")
+ggsave(plot=p, width = 9, height=8, filename="plots/correlations.png")
 # looks like there isn't too much colinearity there, with the exception of medicinal and smoky
 
 # ----
@@ -32,6 +33,7 @@ p <- ggplot(plot.data, aes(x=value, group=1)) +
   ylab("Number of ratings")
 
 ggsave(plot=p, filename="plots/distributions.svg", width = 9, height = 6)
+ggsave(plot=p, filename="plots/distributions.png", width = 9, height = 6)
 
 # some interesting things there
 # - tobacco only has 0s and 1s
