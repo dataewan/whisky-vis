@@ -122,3 +122,30 @@ Malty, honey whisky.
 Doesn't score highly for body.
 
 Examples: Old Fettercairn, Deanston, Aberlour
+
+
+----
+## Ordering the variables
+
+Found [this analysis](http://imgur.com/1fh6eyc)
+where [@_cingraham](@_cingraham) plots the flavour distributions on radial plots.
+
+Radial plots need a radial ordering of the variables.
+It make most sense to order the variables in terms of closeness.
+
+Try and make a scale that has the close variables close to each other,
+and the far away variables far away from each other.
+Here's my attempt at the scale.  
+
+1. Body
+1. Tobacco
+1. Medicinal
+1. Smoky
+1. Spicy
+1. Fruity
+1. Floral 
+1. Nutty 
+1. Malty
+1. Honey
+1. Sweetness
+1. Winey
