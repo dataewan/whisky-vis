@@ -161,3 +161,8 @@ I've got three interesting things now:
  1. An idea about radial scales.
 
 My plan is to combine all of these into one.
+
+`calc_distances.py` calculates the distance between each distillery.
+This isn't geographic distance,
+it is the distance in the factor space.
+This is equivalent to the similarity of the two distilleries.
