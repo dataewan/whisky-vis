@@ -166,3 +166,12 @@ My plan is to combine all of these into one.
 This isn't geographic distance,
 it is the distance in the factor space.
 This is equivalent to the similarity of the two distilleries.
+
+
+## Geo data
+
+http://www.diva-gis.org/datadown
+
+Following instructions from here:
+
+https://medium.com/@mbostock/command-line-cartography-part-1-897aa8f8ca2c

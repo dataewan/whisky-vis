@@ -3,3 +3,6 @@ whiskies.txt
 *.csv
 
 .R*
+/venv/
+/node_modules/
+/geo/

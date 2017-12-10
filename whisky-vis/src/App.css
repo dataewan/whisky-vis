@@ -1,0 +1,12 @@
+svg{
+    background-color: #eee;
+}
+
+g{
+    stroke-width: 0.5
+}
+
+path{
+    stroke: #555;
+    fill: #ccf;
+}
