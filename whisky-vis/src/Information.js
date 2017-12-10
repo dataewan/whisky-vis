@@ -3,7 +3,8 @@ import React from 'react'
 class Information extends React.Component {
   render() {
     const { selected } = this.props
-    const distillery = selected ? selected.Distillery : ''
+    console.log(selected)
+    const distillery = selected ? selected.formatname : ''
     const postcode = selected ? selected.Postcode : ''
     return (
       <div className='information'>

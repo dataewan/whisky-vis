@@ -3,6 +3,7 @@
 import csv
 import json
 from convertbng.util import convert_lonlat
+import re
 
 
 def formreader(filename):
@@ -31,6 +32,18 @@ def getLatLong(row):
         'long': lonlat[0][0]
     }
 
+def makeprettyname(row):
+    """The distillery names are formatted as CamelCase. Make a new column with spaces in.
+
+    :row: row object from the reader
+    :returns: string which might have spaces in it.
+
+    """
+    split = re.findall('[A-Z][a-z]*', row['Distillery'])
+    return {
+        'formatname': ' '.join(split)
+    }
+
 def parserow(row):
     """Extract the useful elements from the row
 
@@ -39,7 +52,8 @@ def parserow(row):
 
     """
     latlong = getLatLong(row)
-    return {**row, **latlong}
+    prettyname = makeprettyname(row)
+    return {**row, **latlong, **prettyname}
 
 
 def parsedata(reader):
