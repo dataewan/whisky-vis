@@ -10,3 +10,16 @@ path{
     stroke: #555;
     fill: #ccf;
 }
+
+circle.selected{
+    fill: #deadee;
+}
+
+div.information{
+    float: left;
+    width: 30%;
+}
+
+div.map{
+    width: 70%;
+}

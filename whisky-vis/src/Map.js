@@ -5,7 +5,7 @@ import * as d3 from 'd3';
 import * as topojson from 'topojson-client';
 import geo from './geo.json';
 
-class Scotland extends React.Component {
+class Scotland extends Component {
   render() {
     const projection = this.props.proj;
     const pathGenerator = d3.geoPath().projection(projection);
@@ -23,7 +23,7 @@ class Scotland extends React.Component {
   }
 }
 
-class Distileries extends React.Component{
+class Distileries extends Component{
   render(){
     const whiskyProcessed = this.props.whisky.map(d => {
       var p = [d.long, d.lat]
@@ -32,11 +32,14 @@ class Distileries extends React.Component{
       d['y'] = projected[1]
       return d
     })
+    const selectedRow = this.props.selected ? this.props.selected.RowID : null
     const points = whiskyProcessed.map((d, i) => <circle
       key={'distillery'+i}
       cx={d.x}
       cy={d.y}
       r={3}
+      onMouseEnter={() => {this.props.onHover(d)}}
+      className = { selectedRow === d.RowID ? 'selected' : 'notselected' }
     />
     )
     return(
@@ -47,11 +50,11 @@ class Distileries extends React.Component{
   }
 }
 
-class Map extends React.Component {
+class Map extends Component {
   constructor(props){
     super(props)
     this.proj = d3.geoAlbers()
-      .center([0, 58.6])
+      .center([0, 57.8])
       .rotate([4.4, 0])
       .parallels([50, 60])
       .scale(7000)
@@ -60,15 +63,22 @@ class Map extends React.Component {
 
   render() {
     return (
-      <svg
-        ref={node => this.node = node}
-        width={this.props.width}
-        height={this.props.height}>
-        <g>
-          <Scotland proj={this.proj}/>
-          <Distileries proj={this.proj} whisky={this.props.whisky} />
-        </g>
-      </svg>
+      <div className='map'>
+        <svg
+          ref={node => this.node = node}
+          width={this.props.width}
+          height={this.props.height}>
+          <g>
+            <Scotland proj={this.proj}/>
+            <Distileries 
+              proj={this.proj} 
+              whisky={this.props.whisky} 
+              onHover={(d) => this.props.onHover(d)}
+              selected={this.props.selected}
+            />
+          </g>
+        </svg>
+      </div>
     );
   }
 }
