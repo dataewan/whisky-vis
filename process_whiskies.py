@@ -76,7 +76,7 @@ def outputjson(parsed, filename='whisky-vis/src/whisky.json'):
         json.dump(parsed, f)
 
 if __name__ == "__main__":
-    f, reader = formreader('./whiskies.txt')
+    f, reader = formreader('./whisky-clusters.csv')
     parsed = parsedata(reader)
     outputjson(parsed)
     f.close()

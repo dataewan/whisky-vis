@@ -1,5 +1,5 @@
-analysis:
-	R -f analysis.R --silent
+visualisationdata:
+	python process_whiskies.py
 
 geo:
 	unzip -n geo/GBR_adm.zip -d geo
@@ -17,5 +17,4 @@ geo:
 		< geo/uk-simple.ndjson \
 		> geo/uk-quantised.ndjson
 	cp geo/uk-quantised.ndjson whisky-vis/src/geo.json
-
 	geo2svg -w 960 -h 960 < geo/uk-quantised.ndjson > geo/uk.svg
