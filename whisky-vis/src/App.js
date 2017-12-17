@@ -31,6 +31,8 @@ class App extends Component {
             <li><Link to='/cluster4'>Cluster 4</Link></li>
             <li><Link to='/cluster5'>Cluster 5</Link></li>
             <li><Link to='/variableprojection'>Variable Projection</Link></li>
+            <li><Link to='/islay'>Islay</Link></li>
+            <li><Link to='/speyside'>Speyside</Link></li>
           </ul>
           <Route path='/overview' component={Overview} />
           <Route path='/cluster0' component={() => <Overview cluster={'0'} />} />
@@ -40,6 +42,16 @@ class App extends Component {
           <Route path='/cluster4' component={() => <Overview cluster={'4'} />} />
           <Route path='/cluster5' component={() => <Overview cluster={'5'} />} />
           <Route path='/variableprojection' component={VariableProjection} />
+          <Route path='/islay' component={() => <Overview 
+              rotate0={6.25}
+              rotate1={1.92}
+              scale={57400}
+              />} />
+          <Route path='/speyside' component={() => <Overview 
+              rotate0={3.37}
+              rotate1={0.24}
+              scale={52300}
+              />} />
         </div>
       </Router>
     )

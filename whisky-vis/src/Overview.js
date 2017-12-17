@@ -42,6 +42,11 @@ class Overview extends React.Component {
           onHover={this.onHover}
           selected={this.state.selected}
           cluster={this.props.cluster}
+          center0={this.props.center0}
+          center1={this.props.center1}
+          rotate0={this.props.rotate0}
+          rotate1={this.props.rotate1}
+          scale={this.props.scale}
         />
       </div>
     );
