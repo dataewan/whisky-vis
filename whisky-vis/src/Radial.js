@@ -46,7 +46,7 @@ class Radial extends React.Component {
     const selected = this.props.selected;
     const points = SCALEORDER.map((d, i) => {
       const phi = this.anglescale(d)
-      const value = selected[d] ? selected[d] : 0
+      const value = selected ? selected[d] ? selected[d] : 0 : 0
       const r = this.heightscales[d](value)
       const x = r * Math.sin(phi)
       // remember that down is positive in svg space
@@ -68,11 +68,43 @@ class Radial extends React.Component {
     )
   }
 
+  calclabels(){
+
+    return SCALEORDER.map((d, i) => {
+      const phi = this.anglescale(d) + (
+        this.anglescale.bandwidth() / 2
+      )
+      const r = this.heightscales[d](0) + 1
+      const x = r * Math.sin(phi)
+      // remember that down is positive in svg space
+      const y = -r * Math.cos(phi)
+
+      const textanglerotate = (theta) => {
+        if (theta > 0){
+          return -90 + theta * (180 / Math.PI)
+        } else{
+          return 90 + theta * (180 / Math.PI)
+        }
+      }
+
+      const textanchor = phi > 0 ? 'start' : 'end'
+      return <text
+        key={'label'+i}
+        textAnchor={textanchor}
+        transform={`translate(${x}, ${y})rotate(${textanglerotate(phi)})`}
+        fontSize={7}
+        >
+          {d}
+        </text>
+    })
+  }
+
 
   render() {
     window.d3 = d3;
     window.whisky = this.props.whisky;
-    const points = this.props.selected ? this.calcpoints() : null
+    const points = this.calcpoints()
+    const labels = this.calclabels()
     return (
       <svg 
         className='radial'
@@ -82,6 +114,7 @@ class Radial extends React.Component {
       >
         <g transform={`translate(${this.props.width / 2} ${this.props.height - this.bottomPad})`}>
           {points}
+          {labels}
         </g>
       </svg>
     );
