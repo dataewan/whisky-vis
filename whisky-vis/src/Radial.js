@@ -59,6 +59,7 @@ class Radial extends React.Component {
 
       return <path
         key={'arc'+i}
+        className='radial'
         d={arc()}
       />
 
@@ -91,8 +92,10 @@ class Radial extends React.Component {
       return <text
         key={'label'+i}
         textAnchor={textanchor}
+        dy={'0.5em'}
         transform={`translate(${x}, ${y})rotate(${textanglerotate(phi)})`}
-        fontSize={7}
+        fontSize={8}
+        className='radiallabel'
         >
           {d}
         </text>

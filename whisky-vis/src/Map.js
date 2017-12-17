@@ -11,6 +11,7 @@ class Scotland extends Component {
     const pathGenerator = d3.geoPath().projection(projection);
     const features = topojson.feature(geo, geo.objects.tracts).features
     const coast = features.map((d, i) => <path
+      className='scotland'
       key={'path'+i}
       d={pathGenerator(d)}
     />
@@ -66,6 +67,7 @@ class Map extends Component {
       <div className='map'>
         <svg
           ref={node => this.node = node}
+          className='map'
           width={this.props.width}
           height={this.props.height}>
           <g>
