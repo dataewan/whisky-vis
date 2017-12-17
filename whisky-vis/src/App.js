@@ -7,6 +7,7 @@ import {
 import './App.css';
 
 import Overview from './Overview';
+import VariableProjection from './VariableProjection'
 
 const Home = () => (
   <div>
@@ -29,6 +30,7 @@ class App extends Component {
             <li><Link to='/cluster3'>Cluster 3</Link></li>
             <li><Link to='/cluster4'>Cluster 4</Link></li>
             <li><Link to='/cluster5'>Cluster 5</Link></li>
+            <li><Link to='/variableprojection'>Variable Projection</Link></li>
           </ul>
           <Route path='/overview' component={Overview} />
           <Route path='/cluster0' component={() => <Overview cluster={'0'} />} />
@@ -37,6 +39,7 @@ class App extends Component {
           <Route path='/cluster3' component={() => <Overview cluster={'3'} />} />
           <Route path='/cluster4' component={() => <Overview cluster={'4'} />} />
           <Route path='/cluster5' component={() => <Overview cluster={'5'} />} />
+          <Route path='/variableprojection' component={VariableProjection} />
         </div>
       </Router>
     )
