@@ -46,7 +46,7 @@ class Distileries extends Component{
     })
     const selectedRow = this.props.selected ? this.props.selected.RowID : null
     const enabled = (point) => this.props.cluster ? this.props.cluster === point.cluster : true
-    const points = whiskyProcessed.map((d, i) => <circle
+    let points = whiskyProcessed.map((d, i) => <circle
       key={'distillery'+i}
       cx={d.x}
       cy={d.y}
@@ -55,6 +55,20 @@ class Distileries extends Component{
       className = { calcpointclass(d, selectedRow) }
     />
     )
+    points = points.sort((a, b) => {
+      if (a.props.className === b.props.className){
+        return 0;
+      }
+      if (a.props.className === 'disabled'){
+        return -1;
+      }
+      if (b.props.className === 'disabled'){
+        return 1;
+      }
+      return a > b
+
+    })
+    console.log(points)
     return(
       <g>
         {points}
