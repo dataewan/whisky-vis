@@ -26,6 +26,17 @@ class Scotland extends Component {
 
 class Distileries extends Component{
   render(){
+    const calcpointclass = (point, selectedRow) => {
+      // find out if this cluster should be enabled or not.
+      if (this.props.cluster) {
+        if (this.props.cluster === point.cluster){
+          return point.RowID === selectedRow ? 'selected' : 'notselected'
+        } else {
+          return 'disabled'
+        }
+      }
+      return point.RowID === selectedRow ? 'selected' : 'notselected'
+    }
     const whiskyProcessed = this.props.whisky.map(d => {
       var p = [d.long, d.lat]
       var projected = this.props.proj(p);
@@ -34,13 +45,14 @@ class Distileries extends Component{
       return d
     })
     const selectedRow = this.props.selected ? this.props.selected.RowID : null
+    const enabled = (point) => this.props.cluster ? this.props.cluster === point.cluster : true
     const points = whiskyProcessed.map((d, i) => <circle
       key={'distillery'+i}
       cx={d.x}
       cy={d.y}
       r={3}
-      onMouseEnter={() => {this.props.onHover(d)}}
-      className = { selectedRow === d.RowID ? 'selected' : 'notselected' }
+      onMouseEnter={enabled(d) ? () => {this.props.onHover(d)} : null}
+      className = { calcpointclass(d, selectedRow) }
     />
     )
     return(
@@ -52,17 +64,18 @@ class Distileries extends Component{
 }
 
 class Map extends Component {
-  constructor(props){
-    super(props)
-    this.proj = d3.geoAlbers()
-      .center([0, 57.8])
-      .rotate([4.4, 0])
-      .parallels([50, 60])
-      .scale(7000)
-      .translate([this.props.width / 2, this.props.height / 2]);
-  }
-
   render() {
+    const center0 = this.props.center0 ? this.props.center0 : 0;
+    const center1 = this.props.center1 ? this.props.center1 : 57.8;
+    const rotate0 = this.props.rotate0 ? this.props.rotate0 : 4.4;
+    const rotate1 = this.props.rotate1 ? this.props.rotate1 : 0;
+    const scale = this.props.scale ? this.props.scale : 7000;
+    this.proj = d3.geoAlbers()
+      .center([center0, center1])
+      .rotate([rotate0, rotate1])
+      .parallels([50, 60])
+      .scale(scale)
+      .translate([this.props.width / 2, this.props.height / 2]);
     return (
       <div className='map'>
         <svg
@@ -77,6 +90,7 @@ class Map extends Component {
               whisky={this.props.whisky} 
               onHover={(d) => this.props.onHover(d)}
               selected={this.props.selected}
+              cluster={this.props.cluster}
             />
           </g>
         </svg>

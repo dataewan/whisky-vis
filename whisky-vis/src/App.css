@@ -17,8 +17,11 @@ circle{
 }
 
 circle.selected{
-    stroke: white;
     fill: #ff0a78;
+}
+
+circle.disabled{
+    fill: #E4DBDF;
 }
 
 path.radial{
