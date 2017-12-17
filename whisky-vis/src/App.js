@@ -5,7 +5,8 @@ import * as d3 from 'd3';
 import * as topojson from 'topojson-client';
 
 import Map from './Map'
-import Information from './Information'
+import InformationTable from './InformationTable'
+import Radial from './Radial'
 import whisky from './whisky.json';
 
 class App extends Component {
@@ -26,9 +27,16 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Information
-          selected={this.state.selected}
-        />
+        <div className='information'>
+          <InformationTable
+            selected={this.state.selected}
+          />
+          <Radial 
+            selected={this.state.selected}
+            whisky={whisky}
+            width={400} height={300}
+          />
+        </div>
         <Map width={500} height={800}
           whisky={whisky}
           onHover={this.onHover}

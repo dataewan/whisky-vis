@@ -16,10 +16,17 @@ circle.selected{
 }
 
 div.information{
-    float: left;
     width: 30%;
+    float: left;
+}
+
+div.information > table{
+}
+
+div.information > svg{
 }
 
 div.map{
+    float: right;
     width: 70%;
 }
