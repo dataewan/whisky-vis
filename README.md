@@ -5,6 +5,9 @@ Pointed to this [dataset about whisky](https://www.mathstat.strath.ac.uk/outreac
 
 I've been looking for a whisky dataset for a while, so very excited to find this.
 
+This list might be useful
+
+https://www.youtube.com/watch?v=t5YeM55l2_0&index=1&list=PL1ABF6820EA98D487
 
 ## Initial analysis
 
