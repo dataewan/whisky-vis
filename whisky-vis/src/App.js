@@ -9,14 +9,6 @@ import './App.css';
 import Overview from './Overview';
 import VariableProjection from './VariableProjection'
 
-const Home = () => (
-  <div>
-    <h2>Home</h2>
-  </div>
-)
-
-
-
 class App extends Component {
   render(){
     return(

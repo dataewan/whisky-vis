@@ -23,8 +23,9 @@ class Radial extends React.Component {
     const scalelength = (this.props.width / 2) ;
     this.heightscales = {}
     SCALEORDER.map(d => {
+      const dimensionValues = this.props.whisky.map(w => w[d])
       this.heightscales[d] = d3.scaleLinear()
-          .domain([0, 5])
+          .domain([0, d3.max(dimensionValues)])
           .range([this.middle * 2, scalelength])
     })
 
@@ -48,9 +49,6 @@ class Radial extends React.Component {
       const phi = this.anglescale(d)
       const value = selected ? selected[d] ? selected[d] : 0 : 0
       const r = this.heightscales[d](value)
-      const x = r * Math.sin(phi)
-      // remember that down is positive in svg space
-      const y = -r * Math.cos(phi)
       const arc = d3.arc()
         .innerRadius(this.heightscales[d](0))
         .outerRadius(r)

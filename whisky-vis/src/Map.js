@@ -68,7 +68,6 @@ class Distileries extends Component{
       return a > b
 
     })
-    console.log(points)
     return(
       <g>
         {points}

@@ -1,6 +1,5 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-import * as d3 from 'd3';
 import * as topojson from 'topojson-client';
 
 import Map from './Map'
