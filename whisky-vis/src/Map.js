@@ -146,7 +146,6 @@ class Map extends Component {
           className='map'
           width={this.props.width}
           height={this.props.height}>
-          {legend}
           <g>
             <Scotland proj={this.proj}/>
             <Distileries 
@@ -160,6 +159,7 @@ class Map extends Component {
               scale={scale}
             />
           </g>
+          {legend}
         </svg>
       </div>
     );
