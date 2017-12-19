@@ -13,15 +13,6 @@ path.scotland{
 
 circle{
     stroke: white;
-    fill: #401227;
-}
-
-circle.selected{
-    fill: #ff0a78;
-}
-
-circle.disabled{
-    fill: #E4DBDF;
 }
 
 path.radial{

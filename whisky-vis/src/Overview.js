@@ -46,6 +46,7 @@ class Overview extends React.Component {
           rotate0={this.props.rotate0}
           rotate1={this.props.rotate1}
           scale={this.props.scale}
+          colourcluster={this.props.colourcluster}
         />
       </div>
     );

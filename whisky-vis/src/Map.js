@@ -4,6 +4,9 @@ import React, { Component } from 'react';
 import * as d3 from 'd3';
 import * as topojson from 'topojson-client';
 import geo from './geo.json';
+import { schemeSet2 as scheme } from 'd3-scale-chromatic';
+
+const disabledColour = '#E4DBDF'
 
 class Scotland extends Component {
   render() {
@@ -26,16 +29,28 @@ class Scotland extends Component {
 
 class Distileries extends Component{
   render(){
-    const calcpointclass = (point, selectedRow) => {
+    const calcpointfill = (point, selectedRow) => {
+      const selectedColour = '#ff0a78'
+      const unselectedColour = '#401227'
+      const colourScaleColour = this.props.colourscale(point.cluster)
+      let selectedCSColour = d3.cubehelix(colourScaleColour)
+      selectedCSColour.l = d3.max([0.85, selectedCSColour.l])
       // find out if this cluster should be enabled or not.
       if (this.props.cluster) {
+        // if we're only highlighting a specific cluster
         if (this.props.cluster === point.cluster){
-          return point.RowID === selectedRow ? 'selected' : 'notselected'
+          // this should be the selected point
+          return point.RowID === selectedRow ? selectedCSColour : colourScaleColour;
         } else {
-          return 'disabled'
+          // this point should be disabled
+          return disabledColour
         }
       }
-      return point.RowID === selectedRow ? 'selected' : 'notselected'
+      if (this.props.colourcluster){
+        // we're colouring points by the cluster
+        return point.RowID === selectedRow ? selectedCSColour : colourScaleColour;
+      }
+      return point.RowID === selectedRow ? selectedColour : unselectedColour;
     }
     const whiskyProcessed = this.props.whisky.map(d => {
       var p = [d.long, d.lat]
@@ -46,14 +61,18 @@ class Distileries extends Component{
     })
     const selectedRow = this.props.selected ? this.props.selected.RowID : null
     const enabled = (point) => this.props.cluster ? this.props.cluster === point.cluster : true
-    let points = whiskyProcessed.map((d, i) => <circle
-      key={'distillery'+i}
-      cx={d.x}
-      cy={d.y}
-      r={3}
-      onMouseEnter={enabled(d) ? () => {this.props.onHover(d)} : null}
-      className = { calcpointclass(d, selectedRow) }
-    />
+    let points = whiskyProcessed.map((d, i) => {
+      return(
+        <circle
+          key={'distillery'+i}
+          cx={d.x}
+          cy={d.y}
+          r={Math.pow(this.props.scale / 7000, 1/9) * 4}
+          onMouseEnter={enabled(d) ? () => {this.props.onHover(d)} : null}
+          fill={calcpointfill(d, selectedRow)}
+        />
+      )
+    }
     )
     points = points.sort((a, b) => {
       if (a.props.className === b.props.className){
@@ -83,12 +102,43 @@ class Map extends Component {
     const rotate0 = this.props.rotate0 ? this.props.rotate0 : 4.4;
     const rotate1 = this.props.rotate1 ? this.props.rotate1 : 0;
     const scale = this.props.scale ? this.props.scale : 7000;
+    const clusters = d3.map(this.props.whisky, d => d.cluster).keys().sort();
+    const colourscale = d3.scaleOrdinal(scheme, clusters.length)
+      .domain(clusters)
+
+    const legendpoints = clusters.map((d, i) => {
+      let fill = colourscale(d)
+      if (this.props.cluster && this.props.cluster !== d){
+        fill = disabledColour
+      }
+      return(
+        <g 
+          key={`legendpoint${i}`}
+          transform={`translate (30 ${i*20})`}>
+          <circle
+            cx={-10}
+            cy={-5}
+            r={5}
+            fill={fill}
+          />
+          <text>{`group ${d}`}</text>
+        </g>
+      )
+    })
+
+    const legend = this.props.colourcluster || this.props.cluster ? <g
+      transform='translate(0 30)'
+    >
+      {legendpoints}
+    </g> : null
+
     this.proj = d3.geoAlbers()
       .center([center0, center1])
       .rotate([rotate0, rotate1])
       .parallels([50, 60])
       .scale(scale)
       .translate([this.props.width / 2, this.props.height / 2]);
+
     return (
       <div className='map'>
         <svg
@@ -96,6 +146,7 @@ class Map extends Component {
           className='map'
           width={this.props.width}
           height={this.props.height}>
+          {legend}
           <g>
             <Scotland proj={this.proj}/>
             <Distileries 
@@ -104,6 +155,9 @@ class Map extends Component {
               onHover={(d) => this.props.onHover(d)}
               selected={this.props.selected}
               cluster={this.props.cluster}
+              colourcluster={this.props.colourcluster}
+              colourscale={colourscale}
+              scale={scale}
             />
           </g>
         </svg>

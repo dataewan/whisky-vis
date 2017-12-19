@@ -22,6 +22,7 @@ class App extends Component {
             <li><Link to='/cluster3'>Cluster 3</Link></li>
             <li><Link to='/cluster4'>Cluster 4</Link></li>
             <li><Link to='/cluster5'>Cluster 5</Link></li>
+            <li><Link to='/colourclusters'>Colour clusters</Link></li>
             <li><Link to='/variableprojection'>Variable Projection</Link></li>
             <li><Link to='/islay'>Islay</Link></li>
             <li><Link to='/speyside'>Speyside</Link></li>
@@ -33,16 +34,19 @@ class App extends Component {
           <Route path='/cluster3' component={() => <Overview cluster={'3'} />} />
           <Route path='/cluster4' component={() => <Overview cluster={'4'} />} />
           <Route path='/cluster5' component={() => <Overview cluster={'5'} />} />
+          <Route path='/colourclusters' component={() => <Overview colourcluster={true} />} />
           <Route path='/variableprojection' component={VariableProjection} />
           <Route path='/islay' component={() => <Overview 
               rotate0={6.25}
               rotate1={1.92}
               scale={57400}
+              colourcluster={true}
               />} />
           <Route path='/speyside' component={() => <Overview 
               rotate0={3.37}
               rotate1={0.24}
               scale={52300}
+              colourcluster={true}
               />} />
         </div>
       </Router>
