@@ -10,7 +10,7 @@ geo:
 	geo2topo -n \
 		tracts=geo/uk-proj.ndjson \
 		> geo/uk-topo.ndjson
-	toposimplify -p 0.0001 -f \
+	toposimplify -p 0.00005 -f \
 		< geo/uk-topo.ndjson \
 		> geo/uk-simple.ndjson
 	topoquantize 1e5 \
