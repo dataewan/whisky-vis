@@ -35,7 +35,7 @@ class App extends Component {
           <Route path='/cluster4' component={() => <Overview cluster={'4'} />} />
           <Route path='/cluster5' component={() => <Overview cluster={'5'} />} />
           <Route path='/colourclusters' component={() => <Overview colourcluster={true} />} />
-          <Route path='/variableprojection' component={VariableProjection} />
+          <Route path='/variableprojection' component={VariableProjection} spey={true} />
           <Route path='/islay' component={() => <Overview 
               rotate0={6.25}
               rotate1={1.92}
@@ -43,10 +43,11 @@ class App extends Component {
               colourcluster={true}
               />} />
           <Route path='/speyside' component={() => <Overview 
-              rotate0={3.37}
-              rotate1={0.24}
-              scale={52300}
+              rotate0={3.93}
+              rotate1={0.5}
+              scale={24800}
               colourcluster={true}
+              spey={true}
               />} />
         </div>
       </Router>

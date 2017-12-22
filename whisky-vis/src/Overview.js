@@ -8,6 +8,7 @@ import Radial from './Radial'
 import whisky from './whisky.json';
 
 
+
 class Overview extends React.Component {
   constructor(props){
     super(props)
@@ -47,6 +48,7 @@ class Overview extends React.Component {
           rotate1={this.props.rotate1}
           scale={this.props.scale}
           colourcluster={this.props.colourcluster}
+          spey={this.props.spey}
         />
       </div>
     );

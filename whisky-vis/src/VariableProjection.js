@@ -77,6 +77,7 @@ class VariableProjection extends React.Component {
           rotate0={this.state.rotate0}
           rotate1={this.state.rotate1}
           scale={this.state.scale}
+          spey={true}
         />
       </div>
     );

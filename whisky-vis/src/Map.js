@@ -4,24 +4,40 @@ import React, { Component } from 'react';
 import * as d3 from 'd3';
 import * as topojson from 'topojson-client';
 import geo from './geo.json';
+import rivers from './rivers.json';
 import { schemeSet2 as scheme } from 'd3-scale-chromatic';
 
 const disabledColour = '#E4DBDF'
 
+window.d3 = d3;
+window.topojson = topojson;
+window.rivers = rivers;
+
 class Scotland extends Component {
   render() {
     const projection = this.props.proj;
+    window.proj = this.props.proj;
     const pathGenerator = d3.geoPath().projection(projection);
     const features = topojson.feature(geo, geo.objects.tracts).features
+    const riverfeatures = topojson.feature(rivers, rivers.objects.tracts).features
     const coast = features.map((d, i) => <path
       className='scotland'
       key={'path'+i}
       d={pathGenerator(d)}
     />
     )
+    let riverpath = null
+    if (this.props.spey){
+      riverpath = riverfeatures.map((d, i) => <path
+        className='river'
+        key={`riverpath${i}`}
+        d={pathGenerator(d)}
+      />)
+    }
     return (
       <g>
         {coast}
+        {riverpath}
       </g>
     );
   }
@@ -147,7 +163,9 @@ class Map extends Component {
           width={this.props.width}
           height={this.props.height}>
           <g>
-            <Scotland proj={this.proj}/>
+            <Scotland proj={this.proj}
+              spey={this.props.spey}
+            />
             <Distileries 
               proj={this.proj} 
               whisky={this.props.whisky} 

@@ -3,7 +3,6 @@ svg.map{
 }
 
 g{
-    stroke-width: 0.5
 }
 
 path.scotland{
@@ -11,7 +10,14 @@ path.scotland{
     fill: #E4DBDF;
 }
 
+path.river{
+    fill: none;
+    stroke-width: 0.9;
+    stroke: seagreen;
+}
+
 circle{
+    stroke-width: 0.5;
     stroke: white;
 }
 
