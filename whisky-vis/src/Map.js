@@ -86,6 +86,7 @@ class Distileries extends Component{
           r={Math.pow(this.props.scale / 7000, 1/9) * 4}
           onMouseEnter={enabled(d) ? () => {this.props.onHover(d)} : null}
           fill={calcpointfill(d, selectedRow)}
+          className={enabled(d) ? 'enabled' : 'disabled'}
         />
       )
     }
