@@ -100,11 +100,66 @@ class Radial extends React.Component {
     })
   }
 
+  averagewhisky(){
+    // going to put two sets of markers on this radial chart to show
+    // the average value of this cluster, and also the average value
+    // of the average whisky
+    const { whisky } = this.props
+    window.whisky = whisky
+    const markers = SCALEORDER.map((d, i) => {
+      const overallvalue = d3.mean(
+        whisky.map(k => k[d])
+      )
+      const clustervalue = d3.mean(
+        whisky.map(k => k.cluster === this.props.cluster ? k[d] : null)
+      )
+
+      const phi = this.anglescale(d)
+      const zeroval = this.heightscales[d](0)
+      // first make the overall marker
+      const overallr = overallvalue ? this.heightscales[d](overallvalue) : 0
+      const overallarc = d3.arc()
+        .innerRadius(zeroval)
+        .outerRadius(overallr)
+        .startAngle(phi)
+        .endAngle(phi + this.anglescale.bandwidth())
+
+      // now make the marker for the cluster
+      const clusterr = d3.max(
+        [
+          clustervalue ? this.heightscales[d](clustervalue) : 0,
+          zeroval
+        ]
+      )
+
+      const clusterarc = d3.arc()
+        .innerRadius(zeroval)
+        .outerRadius(clusterr)
+        .startAngle(phi)
+        .endAngle(phi + this.anglescale.bandwidth())
+
+      return <g
+          key={`overallarc${i}`}
+        >
+        <path
+          className='radialcluster'
+          d={clusterarc()}
+        />
+        <path
+          className='radialoverall'
+          d={overallarc()}
+          fill={'none'}
+          stroke={'red'}
+        />
+      </g>
+    })
+    return markers
+  }
 
   render() {
-    window.d3 = d3;
-    window.whisky = this.props.whisky;
-    const points = this.calcpoints()
+    const points = this.props.selected ? this.calcpoints() : null
+    const averagewhisky = this.props.cluster !== null ? this.averagewhisky() : null
+    console.log(averagewhisky)
     const labels = this.calclabels()
     return (
       <svg 
@@ -115,6 +170,7 @@ class Radial extends React.Component {
       >
         <g transform={`translate(${this.props.width / 2} ${this.props.height - this.bottomPad})`}>
           {points}
+          {averagewhisky}
           {labels}
         </g>
       </svg>

@@ -8,6 +8,7 @@ import './App.css';
 
 import Overview from './Overview';
 import VariableProjection from './VariableProjection'
+import ClusterSummary from './ClusterSummary';
 
 class App extends Component {
   render(){
@@ -26,6 +27,7 @@ class App extends Component {
             <li><Link to='/variableprojection'>Variable Projection</Link></li>
             <li><Link to='/islay'>Islay</Link></li>
             <li><Link to='/speyside'>Speyside</Link></li>
+            <li><Link to='/summaryclusters'>Summary of clusters</Link></li>
           </ul>
           <Route path='/overview' component={Overview} />
           <Route path='/cluster0' component={() => <Overview cluster={'0'} />} />
@@ -49,6 +51,7 @@ class App extends Component {
               colourcluster={true}
               spey={true}
               />} />
+            <Route path='/summaryclusters' component={ClusterSummary} />
         </div>
       </Router>
     )

@@ -16,9 +16,7 @@ class Overview extends React.Component {
       selected: null
     }
     this.onHover.bind(this)
-  }
-
-  onHover = (d) => {
+  } onHover = (d) => {
     this.setState({
       selected: d
     })
