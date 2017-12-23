@@ -23,6 +23,9 @@ class App extends Component {
             <li><Link to='/cluster3'>Cluster 3</Link></li>
             <li><Link to='/cluster4'>Cluster 4</Link></li>
             <li><Link to='/cluster5'>Cluster 5</Link></li>
+            <li><Link to='/cluster6'>Cluster 6</Link></li>
+            <li><Link to='/cluster7'>Cluster 7</Link></li>
+            <li><Link to='/cluster8'>Cluster 8</Link></li>
             <li><Link to='/colourclusters'>Colour clusters</Link></li>
             <li><Link to='/variableprojection'>Variable Projection</Link></li>
             <li><Link to='/islay'>Islay</Link></li>
@@ -36,6 +39,9 @@ class App extends Component {
           <Route path='/cluster3' component={() => <Overview cluster={'3'} />} />
           <Route path='/cluster4' component={() => <Overview cluster={'4'} />} />
           <Route path='/cluster5' component={() => <Overview cluster={'5'} />} />
+          <Route path='/cluster6' component={() => <Overview cluster={'6'} />} />
+          <Route path='/cluster7' component={() => <Overview cluster={'7'} />} />
+          <Route path='/cluster8' component={() => <Overview cluster={'8'} />} />
           <Route path='/colourclusters' component={() => <Overview colourcluster={true} />} />
           <Route path='/variableprojection' component={VariableProjection} spey={true} />
           <Route path='/islay' component={() => <Overview 
