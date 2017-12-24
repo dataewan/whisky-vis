@@ -1,7 +1,11 @@
 
 import React, { Component } from 'react';
 
-import { geoPath, cubehelix, max, map, scaleOrdinal, geoAlbers } from 'd3';
+import { max } from 'd3-array'
+import { map } from 'd3-collection'
+import { scaleOrdinal } from 'd3-scale'
+import { cubehelix } from 'd3-color'
+import { geoPath, geoAlbers } from 'd3-geo'
 import * as topojson from 'topojson-client';
 import geo from './geo.json';
 import rivers from './rivers.json';

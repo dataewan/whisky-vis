@@ -1,5 +1,7 @@
 import React from 'react';
-import { scaleLinear, max, scaleBand, arc, mean } from 'd3';
+import { scaleLinear, scaleBand } from 'd3-scale';
+import { max, mean } from 'd3-array';
+import { arc } from 'd3-shape'
 
 const SCALEORDER = [
   "Body",

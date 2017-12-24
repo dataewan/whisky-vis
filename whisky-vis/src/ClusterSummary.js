@@ -1,5 +1,5 @@
 import React from 'react'
-import { map } from 'd3';
+import { map } from 'd3-collection';
 
 import Radial from './Radial'
 
