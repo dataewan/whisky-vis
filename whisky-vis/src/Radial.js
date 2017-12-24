@@ -166,7 +166,8 @@ class Radial extends React.Component {
     const labels = this.calclabels()
     return (
       <svg 
-        {...this.props}
+        width={this.props.width}
+        height={this.props.height}
         className='radial'
       >
         <g transform={`translate(${this.props.width / 2} ${this.props.height - this.bottomPad})`}>

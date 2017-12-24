@@ -176,11 +176,19 @@ class Map extends Component {
         >
           <g>
             <Scotland 
-              {...this.props}
+              landfill={this.props.landfill}
+              spey={this.props.spey}
+              riverColour={this.props.riverColour}
               proj={this.proj}
             />
             <Distileries 
-              {...this.props}
+              selectedColour={this.props.selectedColour}
+              unselectedColour={this.props.unselectedColour}
+              disabledColour={this.props.disabledColour}
+              cluster={this.props.cluster}
+              colourcluster={this.props.colourcluster}
+              whisky={this.props.whisky}
+              selected={this.props.selected}
               proj={this.proj} 
               onHover={(d) => this.props.onHover(d)}
               colourscale={colourscale}
