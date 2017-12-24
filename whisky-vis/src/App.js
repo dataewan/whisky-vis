@@ -32,7 +32,7 @@ class App extends Component {
             <li><Link to='/speyside'>Speyside</Link></li>
             <li><Link to='/summaryclusters'>Summary of clusters</Link></li>
           </ul>
-          <Route path='/overview' component={Overview} />
+          <Route path='/overview' component={() => <Overview />} />
           <Route path='/cluster0' component={() => <Overview cluster={'0'} />} />
           <Route path='/cluster1' component={() => <Overview cluster={'1'} />} />
           <Route path='/cluster2' component={() => <Overview cluster={'2'} />} />

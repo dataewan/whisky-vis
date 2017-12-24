@@ -1,34 +1,3 @@
-svg.map{
-    background-color: #e3f6fc;
-}
-
-g{
-}
-
-path.scotland{
-    stroke: none;
-    fill: #E4DBDF;
-}
-
-path.river{
-    fill: none;
-    stroke-width: 0.9;
-    stroke: seagreen;
-}
-
-circle{
-    stroke-width: 0.5;
-    stroke: white;
-}
-
-path.radial{
-    fill: #ddd6c0;
-}
-
-text.radiallabel{
-    fill: black;
-}
-
 div.information{
     width: 30%;
     float: left;

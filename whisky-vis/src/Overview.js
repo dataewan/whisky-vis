@@ -25,6 +25,19 @@ class Overview extends React.Component {
   }
 
   render() {
+    const theme ={
+      seafill: 'seagreen',
+      landfill: 'tan',
+      riverColour: 'blue',
+
+      selectedColour: '#ff0a78',
+      unselectedColour:'#401227',
+      disabledpointfill: '#E4DBDF',
+
+      radialOverall: 'cyan',
+      radialFill: 'green',
+    }
+
     return (
       <div className="App">
         <div className='information'>
@@ -32,12 +45,14 @@ class Overview extends React.Component {
             selected={this.state.selected}
           />
           <Radial 
+            {...theme}
             selected={this.state.selected}
             whisky={whisky}
             width={400} height={300}
           />
         </div>
         <Map width={500} height={800}
+          {...theme}
           whisky={whisky}
           onHover={this.onHover}
           selected={this.state.selected}

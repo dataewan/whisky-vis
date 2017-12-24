@@ -7,6 +7,18 @@ import whisky from './whisky.json';
 
 class Summary extends React.Component {
   render() {
+    const theme ={
+      seafill: 'seagreen',
+      landfill: 'tan',
+      riverColour: 'blue',
+
+      selectedColour: '#ff0a78',
+      unselectedColour:'#401227',
+      disabledpointfill: '#E4DBDF',
+
+      radialOverall: 'cyan',
+      radialFill: 'green',
+    }
     const number = whisky.filter(
       d => d.cluster === `${this.props.cluster}`
     ).length
@@ -15,6 +27,7 @@ class Summary extends React.Component {
         <h1>Cluster {this.props.cluster}</h1>
         <h3>Contains {number} whiskies</h3>
         <Radial
+          {...theme}
           whisky={whisky}
           width={400}
           height={300}

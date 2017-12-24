@@ -11,7 +11,6 @@ import geo from './geo.json';
 import rivers from './rivers.json';
 import { schemeSet2 as scheme } from 'd3-scale-chromatic';
 
-const disabledColour = '#E4DBDF'
 
 window.topojson = topojson;
 window.rivers = rivers;
@@ -19,7 +18,6 @@ window.rivers = rivers;
 class Scotland extends Component {
   render() {
     const projection = this.props.proj;
-    window.proj = this.props.proj;
     const pathGenerator = geoPath().projection(projection);
     const features = topojson.feature(geo, geo.objects.tracts).features
     const riverfeatures = topojson.feature(rivers, rivers.objects.tracts).features
@@ -27,6 +25,8 @@ class Scotland extends Component {
       className='scotland'
       key={'path'+i}
       d={pathGenerator(d)}
+      fill={this.props.landfill}
+      stroke={'none'}
     />
     )
     let riverpath = null
@@ -35,6 +35,8 @@ class Scotland extends Component {
         className='river'
         key={`riverpath${i}`}
         d={pathGenerator(d)}
+        stroke={this.props.riverColour}
+        fill={'none'}
       />)
     }
     return (
@@ -49,8 +51,7 @@ class Scotland extends Component {
 class Distileries extends Component{
   render(){
     const calcpointfill = (point, selectedRow) => {
-      const selectedColour = '#ff0a78'
-      const unselectedColour = '#401227'
+      const { selectedColour, unselectedColour, disabledColour } = this.props
       const colourScaleColour = this.props.colourscale(point.cluster)
       let selectedCSColour = cubehelix(colourScaleColour)
       selectedCSColour.l = max([0.85, selectedCSColour.l])
@@ -83,6 +84,8 @@ class Distileries extends Component{
     let points = whiskyProcessed.map((d, i) => {
       return(
         <circle
+          stroke={'white'}
+          strokeWidth={0.5}
           key={'distillery'+i}
           cx={d.x}
           cy={d.y}
@@ -117,6 +120,7 @@ class Distileries extends Component{
 
 class Map extends Component {
   render() {
+    const disabledColour = this.props.disabledColour;
     const center0 = this.props.center0 ? this.props.center0 : 0;
     const center1 = this.props.center1 ? this.props.center1 : 57.8;
     const rotate0 = this.props.rotate0 ? this.props.rotate0 : 4.4;
@@ -165,18 +169,20 @@ class Map extends Component {
           ref={node => this.node = node}
           className='map'
           width={this.props.width}
-          height={this.props.height}>
+          height={this.props.height}
+          style={{
+            backgroundColor: `${this.props.seafill}`
+          }}
+        >
           <g>
-            <Scotland proj={this.proj}
-              spey={this.props.spey}
+            <Scotland 
+              {...this.props}
+              proj={this.proj}
             />
             <Distileries 
+              {...this.props}
               proj={this.proj} 
-              whisky={this.props.whisky} 
               onHover={(d) => this.props.onHover(d)}
-              selected={this.props.selected}
-              cluster={this.props.cluster}
-              colourcluster={this.props.colourcluster}
               colourscale={colourscale}
               scale={scale}
             />

@@ -61,6 +61,7 @@ class Radial extends React.Component {
         key={'arc'+i}
         className='radial'
         d={markerarc()}
+        fill={this.props.radialFill}
       />
 
     })
@@ -96,6 +97,7 @@ class Radial extends React.Component {
         transform={`translate(${x}, ${y})rotate(${textanglerotate(phi)})`}
         fontSize={8}
         className='radiallabel'
+        fill='black'
         >
           {d}
         </text>
@@ -107,7 +109,6 @@ class Radial extends React.Component {
     // the average value of this cluster, and also the average value
     // of the average whisky
     const { whisky } = this.props
-    window.whisky = whisky
     const markers = SCALEORDER.map((d, i) => {
       const overallvalue = mean(
         whisky.map(k => k[d])
@@ -146,12 +147,13 @@ class Radial extends React.Component {
         <path
           className='radialcluster'
           d={clusterarc()}
+          fill={this.props.radialFill}
         />
         <path
           className='radialoverall'
           d={overallarc()}
           fill={'none'}
-          stroke={'red'}
+          stroke={this.props.radialOverall}
         />
       </g>
     })
@@ -161,14 +163,11 @@ class Radial extends React.Component {
   render() {
     const points = this.props.selected ? this.calcpoints() : null
     const averagewhisky = this.props.cluster !== null ? this.averagewhisky() : null
-    console.log(averagewhisky)
     const labels = this.calclabels()
     return (
       <svg 
+        {...this.props}
         className='radial'
-        width={this.props.width}
-        height={this.props.height}
-        fill={'#aaa'}
       >
         <g transform={`translate(${this.props.width / 2} ${this.props.height - this.bottomPad})`}>
           {points}
