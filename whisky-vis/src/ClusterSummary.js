@@ -1,5 +1,5 @@
 import React from 'react'
-import * as d3 from 'd3'
+import { map } from 'd3';
 
 import Radial from './Radial'
 
@@ -28,7 +28,7 @@ class Summary extends React.Component {
 
 class ClusterSummary extends React.Component {
   render() {
-    const clusters = d3.map(whisky, d=>d.cluster).keys().sort()
+    const clusters = map(whisky, d=>d.cluster).keys().sort()
     const summaries = clusters.map((d, i) => {
       return (<Summary key={`summary${i}`} cluster={d} />)
     })

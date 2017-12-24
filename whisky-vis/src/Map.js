@@ -1,7 +1,7 @@
 
 import React, { Component } from 'react';
 
-import * as d3 from 'd3';
+import { geoPath, cubehelix, max, map, scaleOrdinal, geoAlbers } from 'd3';
 import * as topojson from 'topojson-client';
 import geo from './geo.json';
 import rivers from './rivers.json';
@@ -9,7 +9,6 @@ import { schemeSet2 as scheme } from 'd3-scale-chromatic';
 
 const disabledColour = '#E4DBDF'
 
-window.d3 = d3;
 window.topojson = topojson;
 window.rivers = rivers;
 
@@ -17,7 +16,7 @@ class Scotland extends Component {
   render() {
     const projection = this.props.proj;
     window.proj = this.props.proj;
-    const pathGenerator = d3.geoPath().projection(projection);
+    const pathGenerator = geoPath().projection(projection);
     const features = topojson.feature(geo, geo.objects.tracts).features
     const riverfeatures = topojson.feature(rivers, rivers.objects.tracts).features
     const coast = features.map((d, i) => <path
@@ -49,8 +48,8 @@ class Distileries extends Component{
       const selectedColour = '#ff0a78'
       const unselectedColour = '#401227'
       const colourScaleColour = this.props.colourscale(point.cluster)
-      let selectedCSColour = d3.cubehelix(colourScaleColour)
-      selectedCSColour.l = d3.max([0.85, selectedCSColour.l])
+      let selectedCSColour = cubehelix(colourScaleColour)
+      selectedCSColour.l = max([0.85, selectedCSColour.l])
       // find out if this cluster should be enabled or not.
       if (this.props.cluster) {
         // if we're only highlighting a specific cluster
@@ -119,8 +118,8 @@ class Map extends Component {
     const rotate0 = this.props.rotate0 ? this.props.rotate0 : 4.4;
     const rotate1 = this.props.rotate1 ? this.props.rotate1 : 0;
     const scale = this.props.scale ? this.props.scale : 7000;
-    const clusters = d3.map(this.props.whisky, d => d.cluster).keys().sort();
-    const colourscale = d3.scaleOrdinal(scheme, clusters.length)
+    const clusters = map(this.props.whisky, d => d.cluster).keys().sort();
+    const colourscale = scaleOrdinal(scheme, clusters.length)
       .domain(clusters)
 
     const legendpoints = clusters.map((d, i) => {
@@ -149,7 +148,7 @@ class Map extends Component {
       {legendpoints}
     </g> : null
 
-    this.proj = d3.geoAlbers()
+    this.proj = geoAlbers()
       .center([center0, center1])
       .rotate([rotate0, rotate1])
       .parallels([50, 60])

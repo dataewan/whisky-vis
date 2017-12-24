@@ -1,5 +1,5 @@
 import React from 'react';
-import * as d3 from 'd3'
+import { scaleLinear, max, scaleBand, arc, mean } from 'd3';
 
 const SCALEORDER = [
   "Body",
@@ -24,12 +24,12 @@ class Radial extends React.Component {
     this.heightscales = {}
     SCALEORDER.map(d => {
       const dimensionValues = this.props.whisky.map(w => w[d])
-      this.heightscales[d] = d3.scaleLinear()
-          .domain([0, d3.max(dimensionValues)])
+      this.heightscales[d] = scaleLinear()
+          .domain([0, max(dimensionValues)])
           .range([this.middle * 2, scalelength])
     })
 
-    this.anglescale = d3.scaleBand()
+    this.anglescale = scaleBand()
       .domain(SCALEORDER)
       .paddingInner(0.1)
       .range([-Math.PI / 2, Math.PI / 2])
@@ -49,7 +49,7 @@ class Radial extends React.Component {
       const phi = this.anglescale(d)
       const value = selected ? selected[d] ? selected[d] : 0 : 0
       const r = this.heightscales[d](value)
-      const arc = d3.arc()
+      const markerarc = arc()
         .innerRadius(this.heightscales[d](0))
         .outerRadius(r)
         .startAngle(phi)
@@ -58,7 +58,7 @@ class Radial extends React.Component {
       return <path
         key={'arc'+i}
         className='radial'
-        d={arc()}
+        d={markerarc()}
       />
 
     })
@@ -107,10 +107,10 @@ class Radial extends React.Component {
     const { whisky } = this.props
     window.whisky = whisky
     const markers = SCALEORDER.map((d, i) => {
-      const overallvalue = d3.mean(
+      const overallvalue = mean(
         whisky.map(k => k[d])
       )
-      const clustervalue = d3.mean(
+      const clustervalue = mean(
         whisky.map(k => k.cluster === this.props.cluster ? k[d] : null)
       )
 
@@ -118,21 +118,21 @@ class Radial extends React.Component {
       const zeroval = this.heightscales[d](0)
       // first make the overall marker
       const overallr = overallvalue ? this.heightscales[d](overallvalue) : 0
-      const overallarc = d3.arc()
+      const overallarc = arc()
         .innerRadius(zeroval)
         .outerRadius(overallr)
         .startAngle(phi)
         .endAngle(phi + this.anglescale.bandwidth())
 
       // now make the marker for the cluster
-      const clusterr = d3.max(
+      const clusterr = max(
         [
           clustervalue ? this.heightscales[d](clustervalue) : 0,
           zeroval
         ]
       )
 
-      const clusterarc = d3.arc()
+      const clusterarc = arc()
         .innerRadius(zeroval)
         .outerRadius(clusterr)
         .startAngle(phi)
