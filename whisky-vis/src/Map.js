@@ -89,7 +89,7 @@ class Distileries extends Component{
           key={'distillery'+i}
           cx={d.x}
           cy={d.y}
-          r={Math.pow(this.props.scale / 7000, 1/9) * 4}
+          r={Math.pow(this.props.scale / 7000, 1/9) * 3}
           onMouseEnter={enabled(d) ? () => {this.props.onHover(d)} : null}
           fill={calcpointfill(d, selectedRow)}
           className={enabled(d) ? 'enabled' : 'disabled'}
